@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "spark_sql/version"
+require_relative 'spark_sql/version'
 
 module Midl
   module SparkSql
