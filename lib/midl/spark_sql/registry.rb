@@ -39,5 +39,6 @@ module Midl
   end
 end
 
-# %w[
-# ].each { |handler| require_dependency File.join(__dir__, handler) }
+%w[
+  opt_out
+].each { |handler| require_dependency File.join(__dir__, 'handlers', handler) }
