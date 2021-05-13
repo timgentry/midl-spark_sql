@@ -29,15 +29,18 @@ module Midl
       attr_reader :messages, :meta_data
 
       def initialize(meta_data)
+        raise unless meta_data.include?('table')
+
         @meta_data = meta_data
 
-        @patient_table = Arel::Table.new(:patients)
+        table_name = meta_data.delete('table')[Midl::EQUALS]
+        @data_table = Arel::Table.new(table_name)
 
         process_meta_data
       end
 
-      def patient_table
-        @patient_table = yield(@patient_table)
+      def data_table
+        @data_table = yield(@data_table)
       end
 
       def message=(text)
@@ -45,7 +48,7 @@ module Midl
       end
 
       def to_sql
-        @patient_table.project(Arel.star).to_sql
+        @data_table.project(Arel.star).to_sql
       end
 
       private

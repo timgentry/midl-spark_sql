@@ -12,7 +12,7 @@ module Midl
 
       def test_should_fail_with_unknown_canonical_name
         exception = assert_raises(RuntimeError) do
-          query = Query.new([])
+          query = Query.new({ 'table' => { Midl::EQUALS => 'patients' } })
           Registry.fragment_for('vegetable', Midl::EQUALS, query, 'cabbage')
         end
 

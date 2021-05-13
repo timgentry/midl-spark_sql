@@ -6,14 +6,14 @@ module Midl
     # MiDL IR meta data handler for opt-outs
     module Handlers
       Registry.register('ignore_opt_out', Midl::ALL) do |query, operand2|
-        query.patient_table do |patient|
+        query.data_table do |table|
           if operand2
-            patient
+            table
           else
             optouts = Arel::Table.new(:optouts)
-            patient.join(
+            table.join(
               optouts, Arel::Nodes::OuterJoin
-            ).on(patient[:nhsnumber].eq(optouts[:nhsnumber])).where(optouts[:nhsnumber].eq(nil))
+            ).on(table[:nhsnumber].eq(optouts[:nhsnumber])).where(optouts[:nhsnumber].eq(nil))
           end
         end
       end
